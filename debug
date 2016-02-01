@@ -1,0 +1,903 @@
+Terminals unused in grammar
+
+   T_Floatz
+   T_LessEqual
+   T_GreaterEqual
+   T_Equal
+   T_NotEqual
+   T_Dims
+   T_And
+   T_Or
+   T_While
+   T_For
+   T_If
+   T_Else
+   T_Return
+   T_Break
+   T_Inc
+   T_Dec
+   T_Switch
+   T_Case
+   T_Default
+
+
+State 60 conflicts: 2 shift/reduce
+
+
+Grammar
+
+    0 $accept: Program $end
+
+    1 Program: DeclList
+
+    2 DeclList: DeclList Decl
+    3         | Decl
+
+    4 Decl: VariableDecl
+    5     | FnDecl
+
+    6 VariableDecl: Type T_Identifier ';'
+
+    7 Variable: Type T_Identifier
+
+    8 FnDecl: Type T_Identifier '(' Parameters ')' StmtBlock
+    9       | T_Void T_Identifier '(' Parameters ')' StmtBlock
+
+   10 Parameters: ParameterList
+   11           | /* empty */
+
+   12 ParameterList: ParameterList ',' Variable
+   13              | Variable
+
+   14 StmtBlock: '{' VariableDecls StmtList '}'
+
+   15 StmtList: Stmt StmtList
+   16         | /* empty */
+
+   17 Stmt: OptExpr ';'
+   18     | StmtBlock
+
+   19 OptExpr: Expr
+   20        | /* empty */
+
+   21 Expr: LValue
+   22     | Constant
+   23     | LValue '=' Expr
+
+   24 LValue: T_Identifier
+   25       | Expr '[' Expr ']'
+   26       | Expr '.' T_Identifier
+
+   27 VariableDecls: VariableDecls VariableDecl
+   28              | /* empty */
+
+   29 Type: T_Int
+   30     | T_Float
+   31     | T_Bool
+   32     | T_Vec2
+   33     | T_Vec3
+   34     | T_Vec4
+   35     | T_Mat2
+   36     | T_Mat3
+   37     | T_Mat4
+
+   38 Constant: T_IntConstant
+   39         | T_BoolConstant
+   40         | T_FloatConstant
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'(' (40) 8 9
+')' (41) 8 9
+',' (44) 12
+'.' (46) 26
+';' (59) 6 17
+'=' (61) 23
+'[' (91) 25
+']' (93) 25
+'{' (123) 14
+'}' (125) 14
+error (256)
+T_Void (258) 9
+T_Bool (259) 31
+T_Int (260) 29
+T_Floatz (261)
+T_Float (262) 30
+T_LessEqual (263)
+T_GreaterEqual (264)
+T_Equal (265)
+T_NotEqual (266)
+T_Dims (267)
+T_And (268)
+T_Or (269)
+T_While (270)
+T_For (271)
+T_If (272)
+T_Else (273)
+T_Return (274)
+T_Break (275)
+T_Inc (276)
+T_Dec (277)
+T_Switch (278)
+T_Case (279)
+T_Default (280)
+T_Vec2 (281) 32
+T_Vec3 (282) 33
+T_Vec4 (283) 34
+T_Mat2 (284) 35
+T_Mat3 (285) 36
+T_Mat4 (286) 37
+T_Identifier (287) 6 7 8 9 24 26
+T_IntConstant (288) 38
+T_FloatConstant (289) 40
+T_BoolConstant (290) 39
+
+
+Nonterminals, with rules where they appear
+
+$accept (46)
+    on left: 0
+Program (47)
+    on left: 1, on right: 0
+DeclList (48)
+    on left: 2 3, on right: 1 2
+Decl (49)
+    on left: 4 5, on right: 2 3
+VariableDecl (50)
+    on left: 6, on right: 4 27
+Variable (51)
+    on left: 7, on right: 12 13
+FnDecl (52)
+    on left: 8 9, on right: 5
+Parameters (53)
+    on left: 10 11, on right: 8 9
+ParameterList (54)
+    on left: 12 13, on right: 10 12
+StmtBlock (55)
+    on left: 14, on right: 8 9 18
+StmtList (56)
+    on left: 15 16, on right: 14 15
+Stmt (57)
+    on left: 17 18, on right: 15
+OptExpr (58)
+    on left: 19 20, on right: 17
+Expr (59)
+    on left: 21 22 23, on right: 19 23 25 26
+LValue (60)
+    on left: 24 25 26, on right: 21 23
+VariableDecls (61)
+    on left: 27 28, on right: 14 27
+Type (62)
+    on left: 29 30 31 32 33 34 35 36 37, on right: 6 7 8
+Constant (63)
+    on left: 38 39 40, on right: 22
+
+
+state 0
+
+    0 $accept: . Program $end
+    1 Program: . DeclList
+    2 DeclList: . DeclList Decl
+    3         | . Decl
+    4 Decl: . VariableDecl
+    5     | . FnDecl
+    6 VariableDecl: . Type T_Identifier ';'
+    8 FnDecl: . Type T_Identifier '(' Parameters ')' StmtBlock
+    9       | . T_Void T_Identifier '(' Parameters ')' StmtBlock
+   29 Type: . T_Int
+   30     | . T_Float
+   31     | . T_Bool
+   32     | . T_Vec2
+   33     | . T_Vec3
+   34     | . T_Vec4
+   35     | . T_Mat2
+   36     | . T_Mat3
+   37     | . T_Mat4
+
+    T_Void   shift, and go to state 1
+    T_Bool   shift, and go to state 2
+    T_Int    shift, and go to state 3
+    T_Float  shift, and go to state 4
+    T_Vec2   shift, and go to state 5
+    T_Vec3   shift, and go to state 6
+    T_Vec4   shift, and go to state 7
+    T_Mat2   shift, and go to state 8
+    T_Mat3   shift, and go to state 9
+    T_Mat4   shift, and go to state 10
+
+    Program       go to state 11
+    DeclList      go to state 12
+    Decl          go to state 13
+    VariableDecl  go to state 14
+    FnDecl        go to state 15
+    Type          go to state 16
+
+
+state 1
+
+    9 FnDecl: T_Void . T_Identifier '(' Parameters ')' StmtBlock
+
+    T_Identifier  shift, and go to state 17
+
+
+state 2
+
+   31 Type: T_Bool .
+
+    $default  reduce using rule 31 (Type)
+
+
+state 3
+
+   29 Type: T_Int .
+
+    $default  reduce using rule 29 (Type)
+
+
+state 4
+
+   30 Type: T_Float .
+
+    $default  reduce using rule 30 (Type)
+
+
+state 5
+
+   32 Type: T_Vec2 .
+
+    $default  reduce using rule 32 (Type)
+
+
+state 6
+
+   33 Type: T_Vec3 .
+
+    $default  reduce using rule 33 (Type)
+
+
+state 7
+
+   34 Type: T_Vec4 .
+
+    $default  reduce using rule 34 (Type)
+
+
+state 8
+
+   35 Type: T_Mat2 .
+
+    $default  reduce using rule 35 (Type)
+
+
+state 9
+
+   36 Type: T_Mat3 .
+
+    $default  reduce using rule 36 (Type)
+
+
+state 10
+
+   37 Type: T_Mat4 .
+
+    $default  reduce using rule 37 (Type)
+
+
+state 11
+
+    0 $accept: Program . $end
+
+    $end  shift, and go to state 18
+
+
+state 12
+
+    1 Program: DeclList .  [$end]
+    2 DeclList: DeclList . Decl
+    4 Decl: . VariableDecl
+    5     | . FnDecl
+    6 VariableDecl: . Type T_Identifier ';'
+    8 FnDecl: . Type T_Identifier '(' Parameters ')' StmtBlock
+    9       | . T_Void T_Identifier '(' Parameters ')' StmtBlock
+   29 Type: . T_Int
+   30     | . T_Float
+   31     | . T_Bool
+   32     | . T_Vec2
+   33     | . T_Vec3
+   34     | . T_Vec4
+   35     | . T_Mat2
+   36     | . T_Mat3
+   37     | . T_Mat4
+
+    T_Void   shift, and go to state 1
+    T_Bool   shift, and go to state 2
+    T_Int    shift, and go to state 3
+    T_Float  shift, and go to state 4
+    T_Vec2   shift, and go to state 5
+    T_Vec3   shift, and go to state 6
+    T_Vec4   shift, and go to state 7
+    T_Mat2   shift, and go to state 8
+    T_Mat3   shift, and go to state 9
+    T_Mat4   shift, and go to state 10
+
+    $default  reduce using rule 1 (Program)
+
+    Decl          go to state 19
+    VariableDecl  go to state 14
+    FnDecl        go to state 15
+    Type          go to state 16
+
+
+state 13
+
+    3 DeclList: Decl .
+
+    $default  reduce using rule 3 (DeclList)
+
+
+state 14
+
+    4 Decl: VariableDecl .
+
+    $default  reduce using rule 4 (Decl)
+
+
+state 15
+
+    5 Decl: FnDecl .
+
+    $default  reduce using rule 5 (Decl)
+
+
+state 16
+
+    6 VariableDecl: Type . T_Identifier ';'
+    8 FnDecl: Type . T_Identifier '(' Parameters ')' StmtBlock
+
+    T_Identifier  shift, and go to state 20
+
+
+state 17
+
+    9 FnDecl: T_Void T_Identifier . '(' Parameters ')' StmtBlock
+
+    '('  shift, and go to state 21
+
+
+state 18
+
+    0 $accept: Program $end .
+
+    $default  accept
+
+
+state 19
+
+    2 DeclList: DeclList Decl .
+
+    $default  reduce using rule 2 (DeclList)
+
+
+state 20
+
+    6 VariableDecl: Type T_Identifier . ';'
+    8 FnDecl: Type T_Identifier . '(' Parameters ')' StmtBlock
+
+    ';'  shift, and go to state 22
+    '('  shift, and go to state 23
+
+
+state 21
+
+    7 Variable: . Type T_Identifier
+    9 FnDecl: T_Void T_Identifier '(' . Parameters ')' StmtBlock
+   10 Parameters: . ParameterList
+   11           | .  [')']
+   12 ParameterList: . ParameterList ',' Variable
+   13              | . Variable
+   29 Type: . T_Int
+   30     | . T_Float
+   31     | . T_Bool
+   32     | . T_Vec2
+   33     | . T_Vec3
+   34     | . T_Vec4
+   35     | . T_Mat2
+   36     | . T_Mat3
+   37     | . T_Mat4
+
+    T_Bool   shift, and go to state 2
+    T_Int    shift, and go to state 3
+    T_Float  shift, and go to state 4
+    T_Vec2   shift, and go to state 5
+    T_Vec3   shift, and go to state 6
+    T_Vec4   shift, and go to state 7
+    T_Mat2   shift, and go to state 8
+    T_Mat3   shift, and go to state 9
+    T_Mat4   shift, and go to state 10
+
+    $default  reduce using rule 11 (Parameters)
+
+    Variable       go to state 24
+    Parameters     go to state 25
+    ParameterList  go to state 26
+    Type           go to state 27
+
+
+state 22
+
+    6 VariableDecl: Type T_Identifier ';' .
+
+    $default  reduce using rule 6 (VariableDecl)
+
+
+state 23
+
+    7 Variable: . Type T_Identifier
+    8 FnDecl: Type T_Identifier '(' . Parameters ')' StmtBlock
+   10 Parameters: . ParameterList
+   11           | .  [')']
+   12 ParameterList: . ParameterList ',' Variable
+   13              | . Variable
+   29 Type: . T_Int
+   30     | . T_Float
+   31     | . T_Bool
+   32     | . T_Vec2
+   33     | . T_Vec3
+   34     | . T_Vec4
+   35     | . T_Mat2
+   36     | . T_Mat3
+   37     | . T_Mat4
+
+    T_Bool   shift, and go to state 2
+    T_Int    shift, and go to state 3
+    T_Float  shift, and go to state 4
+    T_Vec2   shift, and go to state 5
+    T_Vec3   shift, and go to state 6
+    T_Vec4   shift, and go to state 7
+    T_Mat2   shift, and go to state 8
+    T_Mat3   shift, and go to state 9
+    T_Mat4   shift, and go to state 10
+
+    $default  reduce using rule 11 (Parameters)
+
+    Variable       go to state 24
+    Parameters     go to state 28
+    ParameterList  go to state 26
+    Type           go to state 27
+
+
+state 24
+
+   13 ParameterList: Variable .
+
+    $default  reduce using rule 13 (ParameterList)
+
+
+state 25
+
+    9 FnDecl: T_Void T_Identifier '(' Parameters . ')' StmtBlock
+
+    ')'  shift, and go to state 29
+
+
+state 26
+
+   10 Parameters: ParameterList .  [')']
+   12 ParameterList: ParameterList . ',' Variable
+
+    ','  shift, and go to state 30
+
+    $default  reduce using rule 10 (Parameters)
+
+
+state 27
+
+    7 Variable: Type . T_Identifier
+
+    T_Identifier  shift, and go to state 31
+
+
+state 28
+
+    8 FnDecl: Type T_Identifier '(' Parameters . ')' StmtBlock
+
+    ')'  shift, and go to state 32
+
+
+state 29
+
+    9 FnDecl: T_Void T_Identifier '(' Parameters ')' . StmtBlock
+   14 StmtBlock: . '{' VariableDecls StmtList '}'
+
+    '{'  shift, and go to state 33
+
+    StmtBlock  go to state 34
+
+
+state 30
+
+    7 Variable: . Type T_Identifier
+   12 ParameterList: ParameterList ',' . Variable
+   29 Type: . T_Int
+   30     | . T_Float
+   31     | . T_Bool
+   32     | . T_Vec2
+   33     | . T_Vec3
+   34     | . T_Vec4
+   35     | . T_Mat2
+   36     | . T_Mat3
+   37     | . T_Mat4
+
+    T_Bool   shift, and go to state 2
+    T_Int    shift, and go to state 3
+    T_Float  shift, and go to state 4
+    T_Vec2   shift, and go to state 5
+    T_Vec3   shift, and go to state 6
+    T_Vec4   shift, and go to state 7
+    T_Mat2   shift, and go to state 8
+    T_Mat3   shift, and go to state 9
+    T_Mat4   shift, and go to state 10
+
+    Variable  go to state 35
+    Type      go to state 27
+
+
+state 31
+
+    7 Variable: Type T_Identifier .
+
+    $default  reduce using rule 7 (Variable)
+
+
+state 32
+
+    8 FnDecl: Type T_Identifier '(' Parameters ')' . StmtBlock
+   14 StmtBlock: . '{' VariableDecls StmtList '}'
+
+    '{'  shift, and go to state 33
+
+    StmtBlock  go to state 36
+
+
+state 33
+
+   14 StmtBlock: '{' . VariableDecls StmtList '}'
+   27 VariableDecls: . VariableDecls VariableDecl
+   28              | .
+
+    $default  reduce using rule 28 (VariableDecls)
+
+    VariableDecls  go to state 37
+
+
+state 34
+
+    9 FnDecl: T_Void T_Identifier '(' Parameters ')' StmtBlock .
+
+    $default  reduce using rule 9 (FnDecl)
+
+
+state 35
+
+   12 ParameterList: ParameterList ',' Variable .
+
+    $default  reduce using rule 12 (ParameterList)
+
+
+state 36
+
+    8 FnDecl: Type T_Identifier '(' Parameters ')' StmtBlock .
+
+    $default  reduce using rule 8 (FnDecl)
+
+
+state 37
+
+    6 VariableDecl: . Type T_Identifier ';'
+   14 StmtBlock: . '{' VariableDecls StmtList '}'
+   14          | '{' VariableDecls . StmtList '}'
+   15 StmtList: . Stmt StmtList
+   16         | .  ['}']
+   17 Stmt: . OptExpr ';'
+   18     | . StmtBlock
+   19 OptExpr: . Expr
+   20        | .  [';']
+   21 Expr: . LValue
+   22     | . Constant
+   23     | . LValue '=' Expr
+   24 LValue: . T_Identifier
+   25       | . Expr '[' Expr ']'
+   26       | . Expr '.' T_Identifier
+   27 VariableDecls: VariableDecls . VariableDecl
+   29 Type: . T_Int
+   30     | . T_Float
+   31     | . T_Bool
+   32     | . T_Vec2
+   33     | . T_Vec3
+   34     | . T_Vec4
+   35     | . T_Mat2
+   36     | . T_Mat3
+   37     | . T_Mat4
+   38 Constant: . T_IntConstant
+   39         | . T_BoolConstant
+   40         | . T_FloatConstant
+
+    T_Bool           shift, and go to state 2
+    T_Int            shift, and go to state 3
+    T_Float          shift, and go to state 4
+    T_Vec2           shift, and go to state 5
+    T_Vec3           shift, and go to state 6
+    T_Vec4           shift, and go to state 7
+    T_Mat2           shift, and go to state 8
+    T_Mat3           shift, and go to state 9
+    T_Mat4           shift, and go to state 10
+    T_Identifier     shift, and go to state 38
+    T_IntConstant    shift, and go to state 39
+    T_FloatConstant  shift, and go to state 40
+    T_BoolConstant   shift, and go to state 41
+    '{'              shift, and go to state 33
+
+    ';'       reduce using rule 20 (OptExpr)
+    $default  reduce using rule 16 (StmtList)
+
+    VariableDecl  go to state 42
+    StmtBlock     go to state 43
+    StmtList      go to state 44
+    Stmt          go to state 45
+    OptExpr       go to state 46
+    Expr          go to state 47
+    LValue        go to state 48
+    Type          go to state 49
+    Constant      go to state 50
+
+
+state 38
+
+   24 LValue: T_Identifier .
+
+    $default  reduce using rule 24 (LValue)
+
+
+state 39
+
+   38 Constant: T_IntConstant .
+
+    $default  reduce using rule 38 (Constant)
+
+
+state 40
+
+   40 Constant: T_FloatConstant .
+
+    $default  reduce using rule 40 (Constant)
+
+
+state 41
+
+   39 Constant: T_BoolConstant .
+
+    $default  reduce using rule 39 (Constant)
+
+
+state 42
+
+   27 VariableDecls: VariableDecls VariableDecl .
+
+    $default  reduce using rule 27 (VariableDecls)
+
+
+state 43
+
+   18 Stmt: StmtBlock .
+
+    $default  reduce using rule 18 (Stmt)
+
+
+state 44
+
+   14 StmtBlock: '{' VariableDecls StmtList . '}'
+
+    '}'  shift, and go to state 51
+
+
+state 45
+
+   14 StmtBlock: . '{' VariableDecls StmtList '}'
+   15 StmtList: . Stmt StmtList
+   15         | Stmt . StmtList
+   16         | .  ['}']
+   17 Stmt: . OptExpr ';'
+   18     | . StmtBlock
+   19 OptExpr: . Expr
+   20        | .  [';']
+   21 Expr: . LValue
+   22     | . Constant
+   23     | . LValue '=' Expr
+   24 LValue: . T_Identifier
+   25       | . Expr '[' Expr ']'
+   26       | . Expr '.' T_Identifier
+   38 Constant: . T_IntConstant
+   39         | . T_BoolConstant
+   40         | . T_FloatConstant
+
+    T_Identifier     shift, and go to state 38
+    T_IntConstant    shift, and go to state 39
+    T_FloatConstant  shift, and go to state 40
+    T_BoolConstant   shift, and go to state 41
+    '{'              shift, and go to state 33
+
+    ';'       reduce using rule 20 (OptExpr)
+    $default  reduce using rule 16 (StmtList)
+
+    StmtBlock  go to state 43
+    StmtList   go to state 52
+    Stmt       go to state 45
+    OptExpr    go to state 46
+    Expr       go to state 47
+    LValue     go to state 48
+    Constant   go to state 50
+
+
+state 46
+
+   17 Stmt: OptExpr . ';'
+
+    ';'  shift, and go to state 53
+
+
+state 47
+
+   19 OptExpr: Expr .  [';']
+   25 LValue: Expr . '[' Expr ']'
+   26       | Expr . '.' T_Identifier
+
+    '['  shift, and go to state 54
+    '.'  shift, and go to state 55
+
+    $default  reduce using rule 19 (OptExpr)
+
+
+state 48
+
+   21 Expr: LValue .  [';', '[', ']', '.']
+   23     | LValue . '=' Expr
+
+    '='  shift, and go to state 56
+
+    $default  reduce using rule 21 (Expr)
+
+
+state 49
+
+    6 VariableDecl: Type . T_Identifier ';'
+
+    T_Identifier  shift, and go to state 57
+
+
+state 50
+
+   22 Expr: Constant .
+
+    $default  reduce using rule 22 (Expr)
+
+
+state 51
+
+   14 StmtBlock: '{' VariableDecls StmtList '}' .
+
+    $default  reduce using rule 14 (StmtBlock)
+
+
+state 52
+
+   15 StmtList: Stmt StmtList .
+
+    $default  reduce using rule 15 (StmtList)
+
+
+state 53
+
+   17 Stmt: OptExpr ';' .
+
+    $default  reduce using rule 17 (Stmt)
+
+
+state 54
+
+   21 Expr: . LValue
+   22     | . Constant
+   23     | . LValue '=' Expr
+   24 LValue: . T_Identifier
+   25       | . Expr '[' Expr ']'
+   25       | Expr '[' . Expr ']'
+   26       | . Expr '.' T_Identifier
+   38 Constant: . T_IntConstant
+   39         | . T_BoolConstant
+   40         | . T_FloatConstant
+
+    T_Identifier     shift, and go to state 38
+    T_IntConstant    shift, and go to state 39
+    T_FloatConstant  shift, and go to state 40
+    T_BoolConstant   shift, and go to state 41
+
+    Expr      go to state 58
+    LValue    go to state 48
+    Constant  go to state 50
+
+
+state 55
+
+   26 LValue: Expr '.' . T_Identifier
+
+    T_Identifier  shift, and go to state 59
+
+
+state 56
+
+   21 Expr: . LValue
+   22     | . Constant
+   23     | . LValue '=' Expr
+   23     | LValue '=' . Expr
+   24 LValue: . T_Identifier
+   25       | . Expr '[' Expr ']'
+   26       | . Expr '.' T_Identifier
+   38 Constant: . T_IntConstant
+   39         | . T_BoolConstant
+   40         | . T_FloatConstant
+
+    T_Identifier     shift, and go to state 38
+    T_IntConstant    shift, and go to state 39
+    T_FloatConstant  shift, and go to state 40
+    T_BoolConstant   shift, and go to state 41
+
+    Expr      go to state 60
+    LValue    go to state 48
+    Constant  go to state 50
+
+
+state 57
+
+    6 VariableDecl: Type T_Identifier . ';'
+
+    ';'  shift, and go to state 22
+
+
+state 58
+
+   25 LValue: Expr . '[' Expr ']'
+   25       | Expr '[' Expr . ']'
+   26       | Expr . '.' T_Identifier
+
+    '['  shift, and go to state 54
+    ']'  shift, and go to state 61
+    '.'  shift, and go to state 55
+
+
+state 59
+
+   26 LValue: Expr '.' T_Identifier .
+
+    $default  reduce using rule 26 (LValue)
+
+
+state 60
+
+   23 Expr: LValue '=' Expr .  [';', '[', ']', '.']
+   25 LValue: Expr . '[' Expr ']'
+   26       | Expr . '.' T_Identifier
+
+    '['  shift, and go to state 54
+    '.'  shift, and go to state 55
+
+    '['       [reduce using rule 23 (Expr)]
+    '.'       [reduce using rule 23 (Expr)]
+    $default  reduce using rule 23 (Expr)
+
+
+state 61
+
+   25 LValue: Expr '[' Expr ']' .
+
+    $default  reduce using rule 25 (LValue)
