@@ -46,8 +46,12 @@ void yyerror(const char *msg); // standard error-handling routine
     char identifier[MaxIdentLen+1]; // +1 for terminating null
     Decl *decl;
     VarDecl *varDecl;
+     List<VarDecl*> *varList;
+    FnDecl *fDecl;
     List<Decl*> *declList;
     Type *type;
+    Stmt *stmt;
+    List<Stmt*> *stmtList;
 }
 
 
@@ -84,8 +88,12 @@ void yyerror(const char *msg); // standard error-handling routine
  */
 %type <declList>  DeclList 
 %type <decl>      Decl
-%type <varDecl>   VariableDecl
+%type <varDecl>   VariableDecl Variable
+%type <varList>   Parameters ParameterList VariableDecls
 %type <type>      Type
+%type <fDecl>     FnDecl
+%type <stmt>      Stmt StmtBlock
+%type <stmtList>  StmtList
 
 %%
 /* Rules
@@ -110,11 +118,32 @@ DeclList  :    DeclList Decl        { ($$=$1)->Append($2); }
           |    Decl                 { ($$ = new List<Decl*>)->Append($1); }
           ;
 
-Decl      :    VariableDecl         { $$ = $1; }               
+Decl      :    VariableDecl         { $$ = $1; }  
+          |    FnDecl               { $$ = $1; }             
           ;
           
 VariableDecl  :   Type T_Identifier ';' { $$= new VarDecl(new Identifier(@2, $2),$1);}
               ;
+Variable  :   Type T_Identifier { $$= new VarDecl(new Identifier(@2, $2),$1);}
+          ;
+FnDecl    :    Type T_Identifier '(' Parameters ')' StmtBlock { ($$ = new FnDecl(new Identifier(@2, $2), $1, $4))->SetFunctionBody($6); }
+          ;
+Parameters  :  ParameterList      {$$ = $1;}
+            |                     { $$ = new List<VarDecl*>;}
+            ;
+ParameterList : ParameterList ',' Variable  { ($$=$1)->Append($3);}
+              | Variable {($$ = new List<VarDecl*>)->Append($1);}
+              ;
+StmtBlock :  '{' VariableDecls StmtList '}' {$$ = new StmtBlock($2, $3);}
+
+StmtList  :    Stmt StmtList        { $$ = $2; $$->InsertAt($1, 0); }
+          |    { $$ = new List<Stmt*>; }
+          ;
+Stmt      :    OptExpr ';'  { $$ = $1; }
+          |    StmtBlock
+
+VariableDecls : VariableDecls VariableDecl {($$=$1)->Append($2);}
+              | {$$ = new List<VarDecl*>;}
 
 Type      :    T_Int                {$$ = Type::intType; }
           |    T_Float             {$$ = Type::floatType; }
